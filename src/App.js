@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Refactor from './Toggle'
 
 const App = () => {
 
@@ -9,8 +9,9 @@ const App = () => {
   return (
     <div className="main-wrapper">
       <h1>Dishes</h1>
-      <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
        <h3>{name}</h3>
+      <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
+      <Refactor />
     </div>
   );
 };
