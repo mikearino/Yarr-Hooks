@@ -1,5 +1,6 @@
 import React, { useRef, createContext } from 'react';
 import Refactor from './Toggle'
+import Counter from './Counter'
 import { useTitleInput } from './hooks/useTitleInput'
 
 export const UserContext = createContext();
@@ -13,12 +14,13 @@ const App = () => {
   return (
     <UserContext.Provider
     value={{
-      user: false
+      user: true
     }}
     >
     <div className="main-wrapper" ref={ref}>
       <h1 onClick={() => ref.current.classList.add('new-fake-class')}>Dishes</h1>
       <Refactor />
+      <Counter />
       <form onSubmit={(e) => {
         e.preventDefault();        
       }
