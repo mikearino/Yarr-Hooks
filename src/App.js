@@ -1,6 +1,5 @@
-import React, { useRef, createContext } from 'react';
+import React, { useRef, createContext, useMemo } from 'react';
 import Refactor from './Toggle'
-import Counter from './Counter'
 import { useTitleInput } from './hooks/useTitleInput'
 
 export const UserContext = createContext();
@@ -11,6 +10,13 @@ const App = () => {
   const ref = useRef();
   console.log('ref:', ref)
 
+const reverseWord = word => {
+  console.log("function called")
+  return word.split("").reverse().join("")
+}
+
+const TitleReversed = reverseWord(name)
+
   return (
     <UserContext.Provider
     value={{
@@ -18,9 +24,12 @@ const App = () => {
     }}
     >
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => ref.current.classList.add('new-fake-class')}>Dishes</h1>
+      <h1 onClick={() => ref.current.classList.add('new-fake-class')}>
+      {TitleReversed}
+
+      </h1>
       <Refactor />
-      <Counter />
+    
       <form onSubmit={(e) => {
         e.preventDefault();        
       }
