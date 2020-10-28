@@ -15,7 +15,9 @@ const reverseWord = word => {
   return word.split("").reverse().join("")
 }
 
-const TitleReversed = reverseWord(name)
+const title = "I like turtles"
+
+const TitleReversed = useMemo(() => reverseWord(name), [name])
 
   return (
     <UserContext.Provider
