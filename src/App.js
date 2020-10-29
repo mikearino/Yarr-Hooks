@@ -1,4 +1,4 @@
-import React, { useRef, createContext, useMemo } from 'react';
+import React, { useRef, createContext } from 'react';
 import Refactor from './Toggle'
 import { useTitleInput } from './hooks/useTitleInput'
 
@@ -8,7 +8,6 @@ const App = () => {
  // const [state, useState] = useState(initialState)
   const [name, setName] = useTitleInput('')
   const ref = useRef();
-  console.log('ref:', ref)
 
 const reverseWord = word => {
   console.log("function called")
@@ -16,8 +15,8 @@ const reverseWord = word => {
 }
 
 const title = "I like turtles"
+// use memo with expensive funciotns
 
-const TitleReversed = useMemo(() => reverseWord(name), [name])
 
   return (
     <UserContext.Provider
@@ -27,8 +26,7 @@ const TitleReversed = useMemo(() => reverseWord(name), [name])
     >
     <div className="main-wrapper" ref={ref}>
       <h1 onClick={() => ref.current.classList.add('new-fake-class')}>
-      {TitleReversed}
-
+      I like turtles
       </h1>
       <Refactor />
     
