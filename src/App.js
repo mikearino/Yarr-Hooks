@@ -1,4 +1,4 @@
-import React, { useRef, createContext } from 'react';
+import React, { useRef, createContext, useState, useEffect } from 'react';
 import Refactor from './Toggle'
 import { useTitleInput } from './hooks/useTitleInput'
 
@@ -9,16 +9,19 @@ const App = () => {
   const [name, setName] = useTitleInput('')
   const ref = useRef();
 
-const reverseWord = word => {
-  console.log("function called")
-  return word.split("").reverse().join("")
-}
+  const [dishes, setDishes] = useState([])
+  // get the dishes and load the state
+    const getDishes = async () => {
+      const dishes = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes')
+      setDishes(dishes.data)
+      console.log(dishes)
+    }
 
-const title = "I like turtles"
-// use memo with expensive funciotns
 
+  // useEffect will need to be invoked to make the API call
+  useEffect(() => {getDishes()}, [])
 
-  return (
+    return (
     <UserContext.Provider
     value={{
       user: true
@@ -37,6 +40,13 @@ const title = "I like turtles"
         <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
         <button>Submit</button>
       </form>
+    {dishes.map(dish => (
+      
+      <article className="dish-card dish-card-withImage">
+        <h3>{}</h3>
+      </article>
+      ))}
+      
     </div>
     </UserContext.Provider>
   );
