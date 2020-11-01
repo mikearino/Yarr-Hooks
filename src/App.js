@@ -11,15 +11,17 @@ const App = () => {
 
   const [dishes, setDishes] = useState([])
   // get the dishes and load the state
-    const getDishes = async () => {
-      const dishes = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes')
-      setDishes(dishes.data)
-      console.log(dishes)
+    const fetchDishes = async () => {
+    const res = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes')
+    const data = await res.json();
+    setDishes(data)
     }
 
 
   // useEffect will need to be invoked to make the API call
-  useEffect(() => {getDishes()}, [])
+  useEffect(() => {
+    fetchDishes()
+  },[]); 
 
     return (
     <UserContext.Provider
@@ -43,7 +45,13 @@ const App = () => {
     {dishes.map(dish => (
       
       <article className="dish-card dish-card-withImage">
-        <h3>{}</h3>
+        <h3 key={dish}>{dish.name}</h3>
+          <p>{dish.desc}</p>
+          <div className="ingredients">
+      {dish.ingredients.map(ingredient =>
+        <span key={ingredient}>{ingredient}</span>
+        )}
+    </div>
       </article>
       ))}
       
