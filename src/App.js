@@ -12,6 +12,7 @@ const App = () => {
   const [dishes, setDishes] = useState([])
   // get the dishes and load the state
     const fetchDishes = async () => {
+      console.log('ran')
     const res = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes')
     const data = await res.json();
     setDishes(data)
@@ -21,7 +22,7 @@ const App = () => {
   // useEffect will need to be invoked to make the API call
   useEffect(() => {
     fetchDishes()
-  },[]); 
+  },[name]); 
 
     return (
     <UserContext.Provider
