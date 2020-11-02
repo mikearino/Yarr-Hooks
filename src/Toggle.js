@@ -9,8 +9,8 @@ const Refactor = () => {
   if(!userInfo.user) return null;
     return (
       <div>
-        <button onClick={() => setToggle(!isToggled)}>Toggle</button>
-        {isToggled && <DishForm />}
+       
+        {isToggled ? <DishForm setToggle={setToggle}/> :  <button onClick={() => setToggle(!isToggled)}>Open</button>}
       </div>
     );
   }
