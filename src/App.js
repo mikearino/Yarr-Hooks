@@ -1,4 +1,6 @@
 import React, { useRef, createContext, useState, useEffect } from 'react';
+import  useAbortableFetch  from 'use-abortable-fetch'
+import {  useSpring, animated } from 'react-spring'
 import Refactor from './Toggle'
 import { useTitleInput } from './hooks/useTitleInput'
 
@@ -8,21 +10,14 @@ const App = () => {
  // const [state, useState] = useState(initialState)
   const [name, setName] = useTitleInput('')
   const ref = useRef();
-
-  const [dishes, setDishes] = useState([])
-  // get the dishes and load the state
-    const fetchDishes = async () => {
-      console.log('ran')
-    const res = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes')
-    const data = await res.json();
-    setDishes(data)
-    }
+  const { data = [], loading } = useAbortableFetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
+  
+  const props = useSpring({opacity: 1, from: { opacity: 0 }})
+  console.log(props)
 
 
-  // useEffect will need to be invoked to make the API call
-  useEffect(() => {
-    fetchDishes()
-  },[name]); 
+
+ 
 
     return (
     <UserContext.Provider
@@ -31,9 +26,9 @@ const App = () => {
     }}
     >
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => ref.current.classList.add('new-fake-class')}>
+      <animated.h1 style={props} onClick={() => ref.current.classList.add('new-fake-class')}>
       I like turtles
-      </h1>
+      </animated.h1>
       <Refactor />
     
       <form onSubmit={(e) => {
@@ -43,7 +38,7 @@ const App = () => {
         <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
         <button>Submit</button>
       </form>
-    {dishes.map(dish => (
+    {data && data.map(dish => (
       
       <article className="dish-card dish-card-withImage">
         <h3 key={dish}>{dish.name}</h3>
